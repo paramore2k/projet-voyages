@@ -1,0 +1,105 @@
+
+<mat-form-field class="example-full-width" appearance="fill">
+  <!-- Destination -->
+  <mat-label>Destination: </mat-label>
+  <input type="text"
+         placeholder="Ex. Cancun"
+         matInput
+         required
+         minlength="3"
+         maxlength="30"
+        [formControl]="myControl"
+        [matAutocomplete]="destination">
+  <mat-autocomplete #destination="matAutocomplete">
+    <mat-option *ngFor="let option of options" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<br/>
+<mat-form-field class="example-full-width" appearance="fill">
+
+<!-- Ville de départ -->
+  <mat-label>Ville de départ: </mat-label>
+  <input type="text"
+    placeholder="ex: Québec"
+    matInput
+    required
+    minlength="2"
+    maxlength="50"
+    [formControl]="myControl2"
+  [matAutocomplete]="depart">
+  <mat-autocomplete #depart="matAutocomplete">
+    <mat-option *ngFor="let villeDepart of villeDeparts" [value]="villeDepart">
+      {{ villeDepart }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<br/>
+<h3>Hôtel: </h3>
+<mat-form-field>
+  <mat-label>Nom: </mat-label>
+  <input type="text"
+         placeholder="ex: Playa del Patio"
+         matInput
+         required
+         minlength="3"
+         maxlength="70">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input type="text"
+         placeholder="Coordonnées (Adresse)"
+         matInput
+         required
+         minlength="5"
+         maxlength="90">
+</mat-form-field>
+<br/>
+Nombre d'étoiles:
+<br/>
+
+<ngb-rating [formControl]="ctrl" [rate]="5">
+  <ng-template let-fill="fill" let-index="index">
+    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+  </ng-template>
+</ngb-rating>
+<br/>
+<!-- Nombre de chambres -->
+<mat-form-field>
+  <input type="number"
+         placeholder="Nombre de chambres: "
+         matInput
+         required
+          >
+</mat-form-field>
+<br/>
+<h4>Caractéristiques: </h4>
+<section class="example-section">
+  <mat-checkbox class="ml-2">Face à la mer</mat-checkbox><br/>
+  <mat-checkbox class="ml-2">Non-fumeur</mat-checkbox><br/>
+  <mat-checkbox class="ml-2">Air conditionné / Sans-Fil gratuit</mat-checkbox><br/>
+  <mat-checkbox class="ml-2">Piscine intérieur</mat-checkbox>
+</section>
+<br>
+<mat-form-field appearance="fill">
+  <mat-label>Date de départ: </mat-label>
+  <input matInput [matDatepicker]="departPicker" required>
+  <mat-datepicker-toggle matSuffix [for]="departPicker"></mat-datepicker-toggle>
+  <mat-datepicker #departPicker></mat-datepicker>
+</mat-form-field>
+<br>
+
+<mat-form-field appearance="fill">
+  <mat-label>Date de retour: </mat-label>
+  <input matInput [matDatepicker]="retourPicker" required>
+  <mat-datepicker-toggle matSuffix [for]="retourPicker"></mat-datepicker-toggle>
+  <mat-datepicker #retourPicker></mat-datepicker>
+</mat-form-field>
+<br>
+<mat-form-field>
+  <mat-label>Prix: </mat-label>
+  <input type="number" matInput required min="1" max="99999">
+</mat-form-field>
+
+

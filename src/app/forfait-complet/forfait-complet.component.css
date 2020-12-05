@@ -1,0 +1,10 @@
+.mat-card .matBorder{
+  border: 2px solid fuchsia !important;
+}
+.strikethrough{
+  text-decoration: line-through;
+  margin-right: .5em;
+}
+ul{
+  display: inline-flex;
+}
