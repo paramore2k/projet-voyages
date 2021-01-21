@@ -1,9 +1,10 @@
 .forfaitVedette{
   display: flex;
   align-content: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .cardVedette{
-  border:3px solid ;
+  max-width: 25em;
+  border: 2px solid ;
 }
 

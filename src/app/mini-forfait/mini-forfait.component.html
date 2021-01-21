@@ -1,6 +1,7 @@
-<div class="container">
-  <div class="row forfaitVedette" style="justify-content: center;">
-    <div *ngFor="let miniforfait of tabforfait">
+<!-- Section des forfaits en vedettes -->
+<div class="container forfaitVedette">
+  <div class="row ">
+    <div *ngFor="let miniforfait of forfaits">
       <div class="col">
         <!-- Section des cartes pour les forfaits voyage -->
         <div *ngIf="miniforfait.forfaitEnVedette">
@@ -9,8 +10,8 @@
               <mat-card-title>{{miniforfait.destination}}</mat-card-title>
               <mat-card-subtitle>{{miniforfait.villeDepart}}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content>{{miniforfait.hotel.nomHotel}}
-              <ngb-rating [rate]="miniforfait.hotel.nbEtoiles" [readonly]="readonly">
+            <mat-card-content>{{miniforfait.hotel.nom}}
+              <ngb-rating [rate]="miniforfait.hotel.nombreEtoiles" [readonly]="readonly">
                 <ng-template let-fill="fill" let-index="index">
                   <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
                 </ng-template>
@@ -28,7 +29,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 

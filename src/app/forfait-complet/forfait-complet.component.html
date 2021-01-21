@@ -1,45 +1,55 @@
 <div class="container">
-  <mat-list *ngFor="let forfaitComplet of tabforfait">
-
-    <mat-card class="mb-2">
+  <!-- Section  mini-forfait -->
+  <app-mini-forfait> </app-mini-forfait>
+    <mat-card class="" *ngFor="let forfaitComplet of forfaits">
     <div class="row">
-      <div class="col-4">
-          <img src="{{forfaitComplet.photo}}" alt="" class="img-fluid img-thumbnail">
-      </div>
-      <div class="col-8" [ngClass]="{'matBorder':forfaitComplet.forfaitEnVedette}">
-          <mat-card-content>{{forfaitComplet.hotel.nomHotel}}
+    <div class="col-4"><img src="https://i.imgur.com/yI8KC7w.jpg" alt="" class="img-fluid"></div>
+      <div class="col-8 m-auto" [ngClass]="{'matBorder':forfaitComplet.forfaitEnVedette}">
             <div *ngIf="forfaitComplet.forfaitEnVedette"><span class="material-icons float-right">trending_up trending_up trending_up </span></div>
+        <!-- Partie du haut -->
+
+        <div fxLayout="column" fxLayoutAlign="space-around start">
+        <mat-card-header>
             <mat-card-title>{{forfaitComplet.destination}}</mat-card-title>
             <mat-card-subtitle>{{forfaitComplet.villeDepart}}</mat-card-subtitle>
-            <ngb-rating [rate]="forfaitComplet.hotel.nbEtoiles" [readonly]="readonly">
-              <ng-template let-fill="fill" let-index="index">
-                <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
-              </ng-template>
-            </ngb-rating>
-          </mat-card-content>
+        </mat-card-header>
+        </div>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center">
+          <span class="material-icons">flight_takeoff</span>
+            <span class="material-icons">flight_land</span>
+          </div>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+          <b>{{forfaitComplet.dateDepart}}</b>
+            <b>{{forfaitComplet.dateRetour}}</b>
+          </div>
 
-        <mat-card-content>
-          <p>{{ forfaitComplet.hotel.nomHotel }}</p>
-          <p>Adresse: {{ forfaitComplet.hotel.adresse }}<br/>
-          {{ forfaitComplet.hotel.nbChambres}} chambres</p><br/>
+          <div fxLayout="column" fxLayoutAlign="space-between start">
+          {{ forfaitComplet.hotel.nom }}
+              <ngb-rating [rate]="forfaitComplet.hotel.nombreEtoiles" [readonly]="readonly">
+                <ng-template let-fill="fill" let-index="index">
+                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                </ng-template>
+              </ngb-rating>
+
+
+          {{ forfaitComplet.hotel.nombreChambres}} chambres
+          </div>
             <ul *ngFor="let caracHotel of forfaitComplet.hotel.caracteristiques">
               <li class="list-group-item-action">
               {{ caracHotel }}
             </li>
             </ul>
 
-          <p><span class="material-icons">flight_takeoff</span> <b>{{forfaitComplet.dateDepart}}</b></p>
-          <p><span class="material-icons">flight_land</span><b>{{forfaitComplet.dateRetour}}</b></p>
-          <mat-card-subtitle>{{forfaitComplet.duree}}</mat-card-subtitle>
+
+          <p>{{forfaitComplet.duree}}</p>
+        <div fxLayout="row" fxLayoutAlign="end center">
           <app-prix-forfait [rabais]="forfaitComplet.rabais" [prix]="forfaitComplet.prix"></app-prix-forfait>
-        </mat-card-content>
+        </div>
 
+        </div>
       </div>
-    </div>
-
     </mat-card>
     <mat-divider></mat-divider>
-  </mat-list>
 
 
 </div>

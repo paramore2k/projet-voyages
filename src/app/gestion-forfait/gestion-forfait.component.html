@@ -1,15 +1,25 @@
 
+<!-- Début du formulaire -->
+    <form #forfaitFormAjout="ngForm" id="forfaitFormAjout" (ngSubmit)="onAdd(tableForfaits, forfaitFormAjout);">
+
+      <!-- Section destination -->
 <mat-form-field class="example-full-width" appearance="fill">
-  <!-- Destination -->
   <mat-label>Destination: </mat-label>
   <input type="text"
          placeholder="Ex. Cancun"
          matInput
+         [(ngModel)]="newForfait.destination"
          required
-         minlength="3"
+         id="destination"
+         name="destination"
+         class="form-control"
+         minlength="2"
          maxlength="30"
         [formControl]="myControl"
         [matAutocomplete]="destination">
+  <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('required')">La destination est obligatoire.</mat-error>
+  <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('minlength')">La destination doit contenir au moins 2 caractères.</mat-error>
+  <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('maxlength')">La destination doit contenir au maximum 50 caractères.</mat-error>
   <mat-autocomplete #destination="matAutocomplete">
     <mat-option *ngFor="let option of options" [value]="option">
       {{option}}
@@ -17,14 +27,18 @@
   </mat-autocomplete>
 </mat-form-field>
 <br/>
+
+      <!-- Section ville de départ -->
 <mat-form-field class="example-full-width" appearance="fill">
 
-<!-- Ville de départ -->
   <mat-label>Ville de départ: </mat-label>
   <input type="text"
     placeholder="ex: Québec"
     matInput
     required
+    id="villeDepart"
+     name="villeDepart"
+    [(ngModel)]="newForfait.villeDepart"
     minlength="2"
     maxlength="50"
     [formControl]="myControl2"
@@ -34,7 +48,11 @@
       {{ villeDepart }}
     </mat-option>
   </mat-autocomplete>
+  <mat-error *ngIf="depart.invalid && (depart.dirty || depart.touched) && depart.hasError('required')">La villeDepart est obligatoire.</mat-error>
+  <mat-error *ngIf="depart.invalid && (depart.dirty || depart.touched) && depart.hasError('minlength')">La villeDepart doit contenir au moins 2 caractères.</mat-error>
+  <mat-error *ngIf="depart.invalid && (depart.dirty || depart.touched) && depart.hasError('maxlength')">La villeDepart doit contenir au maximum 50 caractères.</mat-error>
 </mat-form-field>
+
 <br/>
 <h3>Hôtel: </h3>
 <mat-form-field>
@@ -65,12 +83,12 @@ Nombre d'étoiles:
   </ng-template>
 </ngb-rating>
 <br/>
-<!-- Nombre de chambres -->
 <mat-form-field>
   <input type="number"
          placeholder="Nombre de chambres: "
          matInput
          required
+         id="nbChambres"
           >
 </mat-form-field>
 <br/>
@@ -101,5 +119,269 @@ Nombre d'étoiles:
   <mat-label>Prix: </mat-label>
   <input type="number" matInput required min="1" max="99999">
 </mat-form-field>
+
+      <button matSuffix  type="submit" mat-icon-button color="primary" [disabled]="!forfaitFormAjout.form.valid"><i class="material-icons">add</i></button>
+
+    </form>
+
+
+<table mat-table #tableForfaits [dataSource]="forfaits" class="mat-elevation-z8 col-11 m-auto">
+
+  <!-- Section destination -->
+  <ng-container matColumnDef="destination">
+    <th mat-header-cell *matHeaderCellDef>Destination </th>
+    <td mat-cell *matCellDef="let forfait">
+      <!-- Début du formulaire -->
+      <form #forfaitFormEdition="ngForm" id="forfaitFormEdition" (ngSubmit)="forfaitFormEdition.form.valid &&
+ onEdit(forfaitFormEdition)">
+        <!-- Section du champ formulaire Destination -->
+        <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+          <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.destination" matInput required minlength="2"
+                 maxlength="50" name="nomEdition" #nomEdition="ngModel">
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">La destination est obligatoire.</mat-error>
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">La destination doit contenir au moins 2 caractères.</mat-error>
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">La destination doit contenir au maximum 50 caractères.</mat-error>
+        </mat-form-field>
+      </form>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.destination}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section Ville départ -->
+  <ng-container matColumnDef="villeDepart">
+    <th mat-header-cell *matHeaderCellDef>Ville départ </th>
+    <td mat-cell *matCellDef="let forfait">
+        <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+          <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.villeDepart" matInput required minlength="2"
+                 maxlength="50" name="villeDepartEdition" #nomEdition="ngModel">
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+        </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.villeDepart}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section Prix -->
+
+  <ng-container matColumnDef="prix">
+    <th mat-header-cell *matHeaderCellDef>Prix </th>
+    <td mat-cell *matCellDef="let forfait">
+        <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+          <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.prix" matInput required minlength="2"
+                 maxlength="50" name="nomEdition" #nomEdition="ngModel">
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le prix est obligatoire.</mat-error>
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le prix doit contenir au moins 2 caractères.</mat-error>
+          <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le prix doit contenir au maximum 50 caractères.</mat-error>
+        </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.prix}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section nom de l'hôtel -->
+
+  <ng-container matColumnDef="nomHotel">
+    <th mat-header-cell *matHeaderCellDef>Nom de l'Hôtel</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.hotel.nom" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.hotel.nom}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section Coordonnées de l'hôtel -->
+  <ng-container matColumnDef="infoHotel">
+    <th mat-header-cell *matHeaderCellDef>Coordonnées Hôtel</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.hotel.coordonnees" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.hotel.coordonnees}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section nombre d'étoiles -->
+
+  <ng-container matColumnDef="nbEtoiles">
+    <th mat-header-cell *matHeaderCellDef>Nombre d'étoiles</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.hotel.nombreEtoiles" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.hotel.nombreEtoiles}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section nombre de chambre -->
+
+  <ng-container matColumnDef="nbChambres">
+    <th mat-header-cell *matHeaderCellDef>Chambres</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.hotel.nombreChambres" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.hotel.nombreChambres}}</span></ng-template>
+    </td>
+  </ng-container>
+
+<!-- Section Caractéristiques -->
+
+  <ng-container matColumnDef="caract">
+    <th mat-header-cell *matHeaderCellDef>Caractéristiques</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.hotel.caracteristiques" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.hotel.caracteristiques}}</span></ng-template>
+    </td>
+  </ng-container>
+
+<!-- Section date départ -->
+
+  <ng-container matColumnDef="dateDepart">
+    <th mat-header-cell *matHeaderCellDef>Date départ</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.dateDepart" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.dateDepart}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section Date retour -->
+
+  <ng-container matColumnDef="dateRetour">
+    <th mat-header-cell *matHeaderCellDef>Date retour</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.dateRetour" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.dateRetour}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section rabais -->
+
+  <ng-container matColumnDef="rabais">
+    <th mat-header-cell *matHeaderCellDef>Rabais</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.rabais" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.rabais}}</span></ng-template>
+    </td>
+  </ng-container>
+
+  <!-- Section forfait en vedette -->
+
+  <ng-container matColumnDef="vedette">
+    <th mat-header-cell *matHeaderCellDef>En Vedette</th>
+    <td mat-cell *matCellDef="let forfait">
+      <mat-form-field *ngIf="(selectedForfait && selectedForfait === forfait);else editNom;" class="input-full-width">
+        <input name="selectedForfaitNom" [(ngModel)]="selectedForfait.forfaitEnVedette" matInput required minlength="2"
+               maxlength="50" name="nomEdition" #nomEdition="ngModel">
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('required')">Le nom est obligatoire.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('minlength')">Le nom doit contenir au moins 2 caractères.</mat-error>
+        <mat-error *ngIf="nomEdition.invalid && (nomEdition.dirty || nomEdition.touched) &&
+ nomEdition.hasError('maxlength')">Le nom doit contenir au maximum 50 caractères.</mat-error>
+      </mat-form-field>
+      <ng-template #editNom><span (click)="onSelect(forfait)">{{forfait.forfaitEnVedette}}</span></ng-template>
+    </td>
+  </ng-container>
+
+
+
+
+    <!-- Section actions -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef class="pl-4">Actions</th>
+    <td mat-cell *matCellDef="let forfaits" class="boutonsAction">
+      <button *ngIf="(selectedForfait && selectedForfait === forfaits);else editButton;" color="primary" form="forfaitFormEdition"
+              mat-button><i class="material-icons">done</i></button>
+      <ng-template #editButton>
+        <form (ngSubmit)="onSelect(forfaits)">
+          <button mat-button><i class="material-icons">edit</i></button>
+        </form>
+      </ng-template>
+
+      <form (ngSubmit)="onDelete(forfaits)">
+        <button mat-button ><i class="material-icons">delete</i></button>
+      </form>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+</table>
+
 
 

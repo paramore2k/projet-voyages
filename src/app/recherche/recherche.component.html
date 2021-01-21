@@ -3,17 +3,19 @@
           <app-gestion-forfait></app-gestion-forfait>
   </mat-drawer>
 
- <div class="container-fluid">
-   <div class="row">
-<div class="col-1">
-    <button type="button" class="btn btn-primary mb-2" mat-stroked-button (click)="drawer.toggle()">
-      Rechercher
-    </button>
-</div>
-    <div class="col-11">
-      <app-forfait-complet></app-forfait-complet>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2">
+        <button type="button" class="btn btn-primary mb-2" mat-stroked-button (click)="drawer.toggle()">
+          Rechercher
+        </button>
+      </div>
+      <!-- Section forfait complet-->
+      <div class="col-10">
+        <app-forfait-complet></app-forfait-complet>
+      </div>
     </div>
- </div>
- </div>
+  </div>
 
 </mat-drawer-container>

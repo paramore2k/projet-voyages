@@ -1,3 +1,5 @@
-.example-form {
+table {
   width: 100%;
 }
+.boutonsAction form {
+  display: inline-block;}

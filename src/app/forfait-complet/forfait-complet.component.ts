@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Forfaits } from '../forfaits';
-import { TabForfaits } from '../mock-forfaits';
+import { VoyagesService } from '../voyages.service';
 
 @Component({
   selector: 'app-forfait-complet',
@@ -23,12 +23,18 @@ import { TabForfaits } from '../mock-forfaits';
   `]
 })
 export class ForfaitCompletComponent implements OnInit {
-  tabforfait: Forfaits[] = TabForfaits;
+  forfaits!: Forfaits[];
   readonly = true;
 
-  constructor() { }
+  constructor(private voyageService: VoyagesService) { }
 
   ngOnInit(): void {
+    this.getForfaits();
+  }
+
+  getForfaits(): void {
+    this.voyageService.getForfaits()
+      .subscribe(resultat => this.forfaits = resultat);
   }
 
 }

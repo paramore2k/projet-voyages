@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Forfaits } from '../forfaits';
-import { TabForfaits } from '../mock-forfaits';
+import { VoyagesService } from '../voyages.service';
 
 @Component({
   selector: 'app-mini-forfait',
@@ -23,11 +23,17 @@ import { TabForfaits } from '../mock-forfaits';
   `]
 })
 export class MiniForfaitComponent implements OnInit {
-  tabforfait: Forfaits[] = TabForfaits;
+  forfaits!: Forfaits[];
   readonly = true;
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+  constructor(private voyageService: VoyagesService) { }
+
+    ngOnInit(): void {
+      this.getForfaits();
+    }
+    getForfaits(): void {
+      this.voyageService.getForfaits()
+        .subscribe(resultat => this.forfaits = resultat);
+    }
 
 }
