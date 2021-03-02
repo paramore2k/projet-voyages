@@ -10,7 +10,6 @@ export interface Forfaits {
   prix: number;
   dateDepart: string;
   dateRetour: string;
-  duree: string;
   rabais: number;
   da?: string;
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Forfaits } from '../forfaits';
 import { VoyagesService } from '../voyages.service';
+
 
 @Component({
   selector: 'app-forfait-complet',
@@ -23,18 +24,20 @@ import { VoyagesService } from '../voyages.service';
   `]
 })
 export class ForfaitCompletComponent implements OnInit {
-  forfaits!: Forfaits[];
   readonly = true;
+  @Input() forfaits: Forfaits;
 
-  constructor(private voyageService: VoyagesService) { }
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.getForfaits();
-  }
 
-  getForfaits(): void {
-    this.voyageService.getForfaits()
-      .subscribe(resultat => this.forfaits = resultat);
+  }
+  /* Calcul de la durée du voyage */
+  public duree(dateDepart: string, dateRetour: string): any {
+    const date1: Date = new Date(dateDepart);
+    const date2: Date = new Date(dateRetour);
+    return (date2.valueOf() - date1.valueOf()) / (1000 * 3600 * 24);
   }
 
 }

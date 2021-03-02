@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Forfaits } from './forfaits';
 import { Observable } from 'rxjs';
+import {Reservation} from './reservation';
 
 
 const httpOptions = {
@@ -13,16 +14,17 @@ const httpOptions = {
 })
 export class VoyagesService {
   voyagesUrl = 'https://forfaits-voyages.herokuapp.com/api/forfaits/';
+  reservationUrl = 'https://forfaits-voyages.herokuapp.com/api/reservations';
 
   constructor(private http: HttpClient) { }
 
   getForfaits(): Observable<Forfaits[]> {
-    return this.http.get<Forfaits[]>(this.voyagesUrl + 'da/1996489');
+    return this.http.get<Forfaits[]>(this.voyagesUrl + 'da/1996400');
   }
 
   addForfaits(forfaits: Forfaits): Observable<Forfaits> {
-    const id = forfaits._id;
-    return this.http.post<Forfaits>(this.voyagesUrl + 'da/1996489/' + id, forfaits, httpOptions);
+
+    return this.http.post<Forfaits>(this.voyagesUrl, forfaits, httpOptions);
   }
   /** PUT: mise à jour du voyage */
   updateForfaits(forfaits: Forfaits): Observable<any> {

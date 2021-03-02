@@ -1,0 +1,11 @@
+<!--
+ <div *ngFor="let forfait of forfaitsPlage | forfaitsPlage">
+   <app-forfait-complet [forfaits]="forfait"></app-forfait-complet>
+ </div>
+-->
+<mat-list class="listeForfaits">
+  <div *ngFor="let forfait of forfaitsPlage | forfaitsPlage">
+    <app-forfait-complet [forfaits]="forfait"></app-forfait-complet>
+  </div>
+  <mat-divider></mat-divider>
+</mat-list>

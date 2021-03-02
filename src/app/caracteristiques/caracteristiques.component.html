@@ -1,0 +1,4 @@
+<div class="affichageCaracteristiques" *ngFor="let caracteristique of caracteristiques">
+  <mat-checkbox [ngModel]="caracteristique.selectionner"
+  >{{ caracteristique.nom}}</mat-checkbox>
+</div>

@@ -1,3 +1,4 @@
+/*
 import {Forfaits} from './forfaits';
 
 export const TabForfaits: Forfaits[] = [
@@ -12,6 +13,7 @@ export const TabForfaits: Forfaits[] = [
     photo: 'https://i.imgur.com/sfH7fZx.jpg',
     forfaitEnVedette: true,
     rabais: 300,
+    da: '1996400',
     hotel: {
       nom: 'Dreams Sands Cancun Resort & Spa',
       nombreEtoiles: 4,
@@ -31,6 +33,7 @@ export const TabForfaits: Forfaits[] = [
     rabais: 250,
     villeDepart: 'Québec',
     destination: 'Punta Cana, République dominicaine',
+    da: '1996400',
     hotel: {
       nom: 'VIK hotel Arena Blanca',
       nombreEtoiles: 4,
@@ -50,6 +53,7 @@ export const TabForfaits: Forfaits[] = [
     rabais: 350,
     villeDepart: 'Québec',
     destination: 'Riviera Maya, Mexique',
+    da: '1996400',
     hotel: {
       nom: 'Now Jade Riviera Cancun',
       nombreEtoiles: 5,
@@ -69,6 +73,7 @@ export const TabForfaits: Forfaits[] = [
     rabais: 0,
     villeDepart: 'Toronto',
     destination: 'Punta Cana',
+    da: '1996400',
     hotel: {
       nom: 'Majestic Colonial Punta Cana',
       nombreEtoiles: 4,
@@ -88,6 +93,7 @@ export const TabForfaits: Forfaits[] = [
     rabais: 15,
     villeDepart: 'Québec',
     destination: 'La Havane, Cuba',
+    da: '1996400',
     hotel: {
       nom: 'Hotel Nacional',
       nombreEtoiles: 4,
@@ -107,6 +113,7 @@ export const TabForfaits: Forfaits[] = [
     rabais: 100,
     villeDepart: 'Montréal',
     destination: 'Varadero, Cuba',
+    da: '1996400',
     hotel: {
       nom: 'Mar Del Sur',
       nombreEtoiles: 2,
@@ -116,3 +123,4 @@ export const TabForfaits: Forfaits[] = [
     },
   },
 ];
+*/

@@ -4,9 +4,14 @@
     <div class="container-fluid">
       <div class="row justify-content-center">
         <a routerLink="/accueil"><button mat-raised-button color="basic" class="m-2">Accueil</button></a>
-        <a routerLink="/forfaits"><button mat-raised-button color="basic" class="m-2">Forfaits</button></a>
+        <a routerLink="/forfaits-urbain"><button mat-raised-button color="basic" class="m-2">Forfaits Urbain</button></a>
+        <a routerLink="/forfaits-plage"><button mat-raised-button color="basic" class="m-2">Forfaits Plage</button></a>
         <a routerLink="/a-propos"><button class="mat-raised-button m-2">À propos</button></a>
-        <a routerLink="/gestion"><button mat-raised-button color="basic" class="m-2">Administration</button></a>
+          <button mat-raised-button color="basic" class="m-2" [matMenuTriggerFor]="menu">Administration</button>
+          <mat-menu #menu="matMenu">
+            <a routerLink="/gestion"><button mat-menu-item>Gestion</button></a>
+            <a routerLink="/graphiques"><button mat-menu-item>Graphiques</button></a>
+          </mat-menu>
       </div>
     </div>
   </div>

@@ -1,0 +1,4 @@
+.affichageCaracteristiques {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -1,56 +1,58 @@
 <div class="container">
-  <!-- Section  mini-forfait -->
-  <app-mini-forfait> </app-mini-forfait>
-    <mat-card class="" *ngFor="let forfaitComplet of forfaits">
     <div class="row">
-    <div class="col-4"><img src="https://i.imgur.com/yI8KC7w.jpg" alt="" class="img-fluid"></div>
-      <div class="col-8 m-auto" [ngClass]="{'matBorder':forfaitComplet.forfaitEnVedette}">
-            <div *ngIf="forfaitComplet.forfaitEnVedette"><span class="material-icons float-right">trending_up trending_up trending_up </span></div>
+    <div class="col-4 my-4">
+      <img src="https://i.imgur.com/yI8KC7w.jpg" alt="" class="img-fluid">
+    </div>
+
+      <div class="col-8 my-4" [ngClass]="{'matBorder':forfaits.forfaitEnVedette}">
+
+            <div *ngIf="forfaits.forfaitEnVedette"><span class="material-icons float-right">trending_up trending_up trending_up</span></div>
         <!-- Partie du haut -->
 
         <div fxLayout="column" fxLayoutAlign="space-around start">
         <mat-card-header>
-            <mat-card-title>{{forfaitComplet.destination}}</mat-card-title>
-            <mat-card-subtitle>{{forfaitComplet.villeDepart}}</mat-card-subtitle>
+            <mat-card-title>{{forfaits.destination}}</mat-card-title>
+            <mat-card-subtitle>{{forfaits.villeDepart}}</mat-card-subtitle>
         </mat-card-header>
         </div>
+
           <div fxLayout="row" fxLayoutAlign="space-evenly center">
           <span class="material-icons">flight_takeoff</span>
             <span class="material-icons">flight_land</span>
           </div>
+
         <div fxLayout="row" fxLayoutAlign="space-evenly center">
-          <b>{{forfaitComplet.dateDepart}}</b>
-            <b>{{forfaitComplet.dateRetour}}</b>
+          <b>{{forfaits.dateDepart}}</b>
+            <b>{{forfaits.dateRetour}}</b>
           </div>
+        <b>Durée: </b> {{duree(forfaits.dateDepart, forfaits.dateRetour)}} jours
 
           <div fxLayout="column" fxLayoutAlign="space-between start">
-          {{ forfaitComplet.hotel.nom }}
-              <ngb-rating [rate]="forfaitComplet.hotel.nombreEtoiles" [readonly]="readonly">
+          {{ forfaits.hotel.nom }}
+              <ngb-rating [rate]="forfaits.hotel.nombreEtoiles" [readonly]="readonly">
                 <ng-template let-fill="fill" let-index="index">
                   <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
                 </ng-template>
               </ngb-rating>
 
 
-          {{ forfaitComplet.hotel.nombreChambres}} chambres
+          {{ forfaits.hotel.nombreChambres}} chambres
           </div>
-            <ul *ngFor="let caracHotel of forfaitComplet.hotel.caracteristiques">
+            <ul *ngFor="let caracHotel of forfaits.hotel.caracteristiques">
               <li class="list-group-item-action">
               {{ caracHotel }}
             </li>
             </ul>
 
-
-          <p>{{forfaitComplet.duree}}</p>
         <div fxLayout="row" fxLayoutAlign="end center">
-          <app-prix-forfait [rabais]="forfaitComplet.rabais" [prix]="forfaitComplet.prix"></app-prix-forfait>
+          <app-prix-forfait [rabais]="forfaits.rabais" [prix]="forfaits.prix"></app-prix-forfait>
         </div>
 
         </div>
+
       </div>
-    </mat-card>
-    <mat-divider></mat-divider>
 
+  <mat-divider></mat-divider>
 
 </div>
 

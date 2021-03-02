@@ -1,21 +1,78 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-          <app-gestion-forfait></app-gestion-forfait>
-  </mat-drawer>
-
-
-  <div class="container-fluid">
+<!-- Section étoiles -->
+<div class="formulaireRecherche">
+<div class="container">
     <div class="row">
-      <div class="col-2">
-        <button type="button" class="btn btn-primary mb-2" mat-stroked-button (click)="drawer.toggle()">
-          Rechercher
-        </button>
-      </div>
-      <!-- Section forfait complet-->
-      <div class="col-10">
-        <app-forfait-complet></app-forfait-complet>
-      </div>
-    </div>
-  </div>
+        <div class="col-12">
 
-</mat-drawer-container>
+          <!-- Section étoiles -->
+
+        <div class="form-group">
+          <mat-label class="mb-2">Nombre d'étoiles</mat-label><br/>
+          <mat-slider class="mt-4"
+           [(ngModel)]="recherche.nombreEtoiles"
+          (ngModelChange)="changeNombreEtoiles($event)"
+          thumbLabel
+          tickInterval="1"
+          min="1"
+          max="5"
+          step="1"></mat-slider>
+        </div>
+
+          <!-- Section Date de départ -->
+
+            <mat-form-field appearance="fill">
+              <mat-label>Date de départ</mat-label>
+              <input
+                matInput
+                [matDatepicker]="departPicker"
+                [(ngModel)]="recherche.dateDepart"
+                (ngModelChange)="changeDateDepart($event)"
+                >
+              <mat-datepicker-toggle matSuffix [for]="departPicker"></mat-datepicker-toggle>
+              <mat-datepicker #departPicker></mat-datepicker>
+            </mat-form-field>
+
+          <!-- Section durée du voyage -->
+
+          <p>Durée</p>
+          <mat-form-field appearance="fill">
+              <mat-select placeholder="Sélectionner une durée" [(ngModel)]="recherche.duree" (ngModelChange)="changeDuree($event)">
+                <mat-option *ngFor="let nbJour of dureesVoyages" [value]="nbJour.value">{{ nbJour.affichage}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+          <!-- Section ville de départ -->
+
+          <div class="form-group">
+            <mat-form-field class="example-full-width form-group" appearance="fill">
+              <mat-label>Ville de départ: </mat-label>
+              <input type="text"
+                     placeholder="ex: Québec"
+                     matInput
+                     [(ngModel)]="recherche.villeDeDepart"
+                     id="villeDepart"
+                     (ngModelChange)="changeVilleDepart($event)"
+                     name="villeDepart"
+                     [matAutocomplete]="depart">
+              <mat-autocomplete #depart="matAutocomplete">
+                <mat-option *ngFor="let villeDepart of villeDeparts" [value]="villeDepart">
+                  {{ villeDepart }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+

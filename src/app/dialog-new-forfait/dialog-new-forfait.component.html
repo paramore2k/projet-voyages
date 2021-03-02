@@ -1,0 +1,273 @@
+
+<form #forfaitFormAjout="ngForm" name="forfaitFormAjout"  id="forfaitFormAjout" (ngSubmit)="forfaitFormAjout.form.valid">
+  <div class="container m-auto text-center">
+    <div class="row">
+      <div class="col-6">
+        <h4>Destination et Dates</h4>
+
+  <!-- Section destination -->
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Destination: </mat-label>
+    <input type="text"
+           placeholder="Ex. Cancun"
+           matInput
+           class="form-control"
+           [(ngModel)]="newForfait.destination"
+           required
+           minlength="2"
+           id="destination"
+           name="destination"
+           #destination="ngModel"
+           maxlength="50"
+           [ngModelOptions]="{standalone: true}"
+           [matAutocomplete]="destinations">
+    <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('required')">La destination est obligatoire.</mat-error>
+    <mat-autocomplete #destinations="matAutocomplete">
+      <mat-option *ngFor="let option of villeDestination" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('required')">La destination est obligatoire.</mat-error>
+    <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('minlength')">La destination doit contenir au moins 2 caractères.</mat-error>
+    <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('maxlength')">La destination doit contenir au maximum 50 caractères.</mat-error>
+  </mat-form-field>
+
+  <!-- Section ville de départ -->
+
+  <div class="form-group">
+  <mat-form-field class="example-full-width form-group" appearance="fill">
+    <mat-label>Ville de départ: </mat-label>
+    <input type="text"
+           placeholder="ex: Québec"
+           matInput
+           required
+           id="villeDepart"
+           name="villeDepart"
+           #villeDepart="ngModel"
+           [(ngModel)]="newForfait.villeDepart"
+           [ngModelOptions]="{standalone: true}"
+           minlength="2"
+           maxlength="50"
+           [matAutocomplete]="depart">
+    <mat-error *ngIf="villeDepart.invalid && (villeDepart.dirty || villeDepart.touched) && villeDepart.hasError('required')">La ville de départ est obligatoire.</mat-error>
+    <mat-error *ngIf="villeDepart.invalid && (villeDepart.dirty || villeDepart.touched) && villeDepart.hasError('minlength')">La ville de départ doit contenir au moins 2 caractères.</mat-error>
+    <mat-error *ngIf="villeDepart.invalid && (villeDepart.dirty || villeDepart.touched) && villeDepart.hasError('maxlength')">La ville de départ doit contenir au maximum 50 caractères.</mat-error>
+    <mat-autocomplete #depart="matAutocomplete">
+      <mat-option *ngFor="let villeDepart of villeDeparts" [value]="villeDepart">
+        {{ villeDepart }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  </div>
+
+  <!-- Section date de départ -->
+
+  <div class="form-group">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Date de départ</mat-label>
+    <input
+      matInput
+      required
+      id="dateDepart"
+      [matDatepicker]="departPicker"
+      [ngModelOptions]="{standalone: true}"
+      name="dateDepart"
+      [(ngModel)]="newForfait.dateDepart"
+      #dateDepart="ngModel">
+    <mat-datepicker-toggle matSuffix [for]="departPicker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #departPicker></mat-datepicker>
+    <mat-error *ngIf="dateDepart.invalid && (dateDepart.dirty || dateDepart.touched) && dateDepart.hasError('required')">La date de départ est obligatoire.</mat-error>
+  </mat-form-field>
+  </div>
+
+
+<!-- Section date de retour -->
+  <div class="form-group">
+  <mat-form-field appearance="fill">
+    <mat-label>Date de retour: </mat-label>
+    <input
+      [ngModelOptions]="{standalone: true}"
+      matInput
+      [matDatepicker]="retourPicker"
+      required
+      id="dateRetour"
+      name="dateRetour"
+      [(ngModel)]="newForfait.dateRetour"
+      #dateRetour="ngModel">
+    <mat-datepicker-toggle matSuffix [for]="retourPicker"></mat-datepicker-toggle>
+    <mat-datepicker #retourPicker></mat-datepicker>
+    <mat-error *ngIf="dateRetour.invalid && (dateRetour.dirty || dateRetour.touched) && dateRetour.hasError('required')">La date de retour est obligatoire.</mat-error>
+  </mat-form-field>
+  </div>
+        <!-- Section caractéristiques -->
+
+        <h4>Hôtel: </h4>
+        <p>Caractéristiques</p>
+        <section class="example-section">
+          <mat-checkbox
+            [ngModelOptions]="{standalone: true}"
+            name="caracteristiques"
+            *ngFor="let item of caracteristiqueHotel"
+            class="m-1"
+            value={{item}}
+            [ngModel]="caracteristiques"
+            (ngModelChange)="changerOption($event, item)"
+          >{{ item }}</mat-checkbox>
+        </section>
+      </div>
+
+
+      <div class="col-6">
+
+
+  <!-- Section nom de l'hôtel -->
+
+  <h3>Hôtel (Suite) </h3>
+  <div class="form-group">
+  <mat-form-field>
+    <mat-label>Nom: </mat-label>
+    <input type="text"
+           [ngModelOptions]="{standalone: true}"
+           placeholder="ex: Hotel Rio Grande"
+           matInput
+           id="nomHotel"
+           name="nomHotel"
+           [(ngModel)]="newForfait.hotel.nom"
+           #nomHotel="ngModel"
+           required
+           minlength="3"
+           maxlength="70">
+    <mat-error *ngIf="nomHotel.invalid && (nomHotel.dirty || nomHotel.touched) && nomHotel.hasError('required')">Le nom de l'hôtel est obligatoire.</mat-error>
+  </mat-form-field>
+  </div>
+
+  <!-- Section coordonnées de l'hôtel -->
+
+  <div class="form-group">
+  <mat-form-field>
+    <input type="text"
+           placeholder="Coordonnées (Adresse)"
+           matInput
+           [ngModelOptions]="{standalone: true}"
+           [(ngModel)]="newForfait.hotel.coordonnees"
+           #coordoonnesHotel="ngModel"
+           name="coordoonnesHotel"
+           required
+           minlength="5"
+           maxlength="90">
+    <mat-error *ngIf="coordoonnesHotel.invalid && (coordoonnesHotel.dirty || coordoonnesHotel.touched) && coordoonnesHotel.hasError('required')">Les coordonnées de l'hôtel sont obligatoire.</mat-error>
+
+  </mat-form-field>
+  </div>
+
+
+  <!-- Section pour le prix -->
+
+  <div class="form-group">
+  <mat-form-field>
+    <input
+      [ngModelOptions]="{standalone: true}"
+      placeholder="Prix:"
+      type="number"
+      matInput
+      required
+      min="1"
+      max="99999"
+      id="prix"
+      name="prix"
+      onkeyup="if(this.value<0){this.value= 1}"
+      [(ngModel)]="newForfait.prix"
+      #prix="ngModel">
+    <mat-error *ngIf="prix.hasError('required')">Vous devez inscrire un prix au forfait</mat-error>
+  </mat-form-field>
+  </div>
+
+  <!-- Section rabais du forfait -->
+
+  <div class="form-group">
+    <mat-form-field>
+      <input type="number"
+             [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="newForfait.rabais"
+             name="rabais"
+             placeholder="Rabais: "
+             matInput
+             required
+             id="rabais"
+             #rabais="ngModel"
+             min="0"
+             max="200"
+             onkeyup="if(this.value<0){this.value= 0}"
+      >
+      <mat-error *ngIf="rabais.hasError('required')">Entrez 0 si aucun rabais n'est applicable</mat-error>
+    </mat-form-field>
+  </div>
+
+
+
+  <!-- Section nombre de chambre -->
+
+  <div class="form-group">
+
+    <mat-form-field>
+      <mat-label>Nombre de chambres: </mat-label>
+      <input type="number"
+             [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="newForfait.hotel.nombreChambres"
+             #nbChambres="ngModel"
+             name="nbChambres"
+             matInput
+             value="1"
+             min="1"
+             required
+             id="nbChambres"
+      >
+      <mat-error *ngIf="nbChambres.hasError('required')">Le nombre de chambre est obligatoire</mat-error>
+    </mat-form-field>
+  </div>
+        <!-- Section étoiles -->
+
+        <div class="form-group">
+
+          Nombre d'étoiles:
+          <ngb-rating [formControl]="ctrl" [rate]="5" [(ngModel)]="newForfait.hotel.nombreEtoiles">
+            <ng-template let-fill="fill" let-index="index">
+              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2" >&#9733;</span>
+            </ng-template>
+          </ngb-rating>
+          <hr>
+        </div>
+
+
+  <!-- Section Forfait en vedette  -->
+
+  <div class="form-group">
+    <section class="example-section">
+      <mat-checkbox
+        [ngModelOptions]="{standalone: true}"
+        class="ml-2 mb-2"
+        [(ngModel)]="newForfait.forfaitEnVedette"
+      >Mettre le forfait en vedette</mat-checkbox>
+    </section>
+  </div>
+
+
+        <div class="form-group text-right">
+
+            <div class="col-12 text-center mt-3">
+              <mat-dialog-actions>
+              <button mat-raised-button color="warn" (click)="onAnnulerClick()">Annuler</button>
+              <button mat-raised-button color="primary" (click)="forfaitFormAjout" [mat-dialog-close]="newForfait">Soumettre</button>
+              </mat-dialog-actions>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+</form>
+
+
+

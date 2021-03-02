@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+          <div><b class="text-center">Voyageurs par Destination</b>
+            <canvas id="monGraphique" baseChart
+                    [datasets]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [plugins]="pieChartPlugins"
+                    [options]="pieChartOptions"
+                    [colors]="pieChartColors"
+                    [legend]="pieChartLegend"
+                    [chartType]="pieChartType"
+                    height="100px">
+            </canvas>
+          </div>
+        </div>
+      <div class="col">
+        <app-graphiques-bar></app-graphiques-bar>
+      </div>
+    </div>
+</div>
+
+

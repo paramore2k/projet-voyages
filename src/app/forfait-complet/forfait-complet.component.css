@@ -1,5 +1,5 @@
-.mat-card .matBorder{
-  border: 1px solid fuchsia;
+.matBorder{
+  border: 2px solid fuchsia;
 }
 .strikethrough{
   text-decoration: line-through;

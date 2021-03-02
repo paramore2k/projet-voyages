@@ -1,0 +1,6 @@
+<mat-list class="listeForfaits">
+  <div *ngFor="let unForfait of lesForfaits | recherchepipe : recherche">
+    <app-forfait-complet [forfaits]="unForfait"></app-forfait-complet>
+  </div>
+  <mat-divider></mat-divider>
+</mat-list>

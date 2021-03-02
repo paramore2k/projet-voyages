@@ -1,5 +1,19 @@
 table {
   width: 100%;
 }
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
 .boutonsAction form {
-  display: inline-block;}
+  display: inline-block;
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}

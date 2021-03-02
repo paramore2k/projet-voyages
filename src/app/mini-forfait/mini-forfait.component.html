@@ -1,17 +1,14 @@
 <!-- Section des forfaits en vedettes -->
-<div class="container forfaitVedette">
-  <div class="row ">
-    <div *ngFor="let miniforfait of forfaits">
-      <div class="col">
+
         <!-- Section des cartes pour les forfaits voyage -->
-        <div *ngIf="miniforfait.forfaitEnVedette">
           <mat-card class="my-2 cardVedette">
             <mat-card-header>
-              <mat-card-title>{{miniforfait.destination}}</mat-card-title>
-              <mat-card-subtitle>{{miniforfait.villeDepart}}</mat-card-subtitle>
+              <mat-card-title>{{forfait.destination}}</mat-card-title>
+              <mat-card-subtitle>{{forfait.villeDepart}}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content>{{miniforfait.hotel.nom}}
-              <ngb-rating [rate]="miniforfait.hotel.nombreEtoiles" [readonly]="readonly">
+
+            <mat-card-content>{{forfait.hotel.nom}}
+              <ngb-rating [rate]="forfait.hotel.nombreEtoiles" [readonly]="readonly">
                 <ng-template let-fill="fill" let-index="index">
                   <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
                 </ng-template>
@@ -19,16 +16,12 @@
             </mat-card-content>
 
             <mat-card-content>
-              <p>{{miniforfait.dateDepart}} / {{miniforfait.duree}}</p>
-              <!-- Componsant prix-forfait pour reprendre la même structure, en remplaçant tabForfait par miniforfait-->
-              <app-prix-forfait [rabais]="miniforfait.rabais" [prix]="miniforfait.prix"></app-prix-forfait>
+              <p>Départ: <b>{{forfait.dateDepart}}</b></p>
+              <p>Durée: <b>{{duree(forfait.dateDepart, forfait.dateRetour)}} Jours</b></p>
+              <!-- Componsant prix-forfait pour reprendre la même structure, en remplaçant tabForfait par forfait-->
+              <app-prix-forfait [rabais]="forfait.rabais" [prix]="forfait.prix"></app-prix-forfait>
             </mat-card-content>
           </mat-card>
-        </div>
         <!-- Fin forfaits en vedette -->
-      </div>
-    </div>
-  </div>
-</div>
 
 

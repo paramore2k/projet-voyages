@@ -20,6 +20,7 @@
             "outputPath": "dist/projet-voyages",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "allowedCommonJsDependencies": ["chart.js"],
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
