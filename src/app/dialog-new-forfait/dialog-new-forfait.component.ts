@@ -4,7 +4,7 @@ import { Forfaits } from '../forfaits';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {FormControl, NgForm, Validators, ReactiveFormsModule, FormGroup} from '@angular/forms';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
-import {tabCaracteristiques} from '../caracteristique';
+import {Caracteristique} from '../caracteristique';
 import {MatTable} from '@angular/material/table';
 
 
@@ -41,7 +41,7 @@ export class DialogNewForfaitComponent implements OnInit {
   dateDepart: Date;
   dateRetour: Date;
   tableauDesCarac: string[] = this.newForfait.hotel.caracteristiques;
-  caracteristiqueHotel: string[] = tabCaracteristiques;
+  caracteristiqueHotel: Array<Caracteristique>;
 
   /* Section nbg-rating */
   ctrl = new FormControl(null, Validators.required);

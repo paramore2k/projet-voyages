@@ -1,3 +1,4 @@
 <b [ngClass]="rabais > 0 ? 'strikethrough' : 'italic'">{{prix}}$</b>
-<div *ngIf="rabais > 0">Promotion: <b>{{prix-rabais}}$</b></div>
+<div *ngIf="rabais > 0">Promotion: <b>{{prix-rabais}}$</b>
+  <p>Rabais de <i>{{ rabais }}</i> $</p></div>
 

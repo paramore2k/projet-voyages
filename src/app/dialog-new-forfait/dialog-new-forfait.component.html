@@ -1,5 +1,5 @@
-
-<form #forfaitFormAjout="ngForm" name="forfaitFormAjout"  id="forfaitFormAjout" (ngSubmit)="forfaitFormAjout.form.valid">
+<!-- Non-utilisé pour le moment / Section validatio ne fonctionne pas -->
+<form #forfaitFormAjout="ngForm" name="forfaitFormAjout"  id="forfaitFormAjout">
   <div class="container m-auto text-center">
     <div class="row">
       <div class="col-6">
@@ -21,9 +21,9 @@
            #destination="ngModel"
            maxlength="50"
            [ngModelOptions]="{standalone: true}"
-           [matAutocomplete]="destinations">
+           [matAutocomplete]="destination">
     <mat-error *ngIf="destination.invalid && (destination.dirty || destination.touched) && destination.hasError('required')">La destination est obligatoire.</mat-error>
-    <mat-autocomplete #destinations="matAutocomplete">
+    <mat-autocomplete #destination="matAutocomplete">
       <mat-option *ngFor="let option of villeDestination" [value]="option">
         {{option}}
       </mat-option>
@@ -258,7 +258,7 @@
             <div class="col-12 text-center mt-3">
               <mat-dialog-actions>
               <button mat-raised-button color="warn" (click)="onAnnulerClick()">Annuler</button>
-              <button mat-raised-button color="primary" (click)="forfaitFormAjout" [mat-dialog-close]="newForfait">Soumettre</button>
+              <button mat-raised-button color="primary" (click)="forfaitFormAjout">Soumettre</button>
               </mat-dialog-actions>
             </div>
           </div>

@@ -32,7 +32,6 @@ import { AProposComponent } from './a-propos/a-propos.component';
 import { HeaderComponent } from './header/header.component';
 import { MiniForfaitComponent } from './mini-forfait/mini-forfait.component';
 import { ForfaitCompletComponent } from './forfait-complet/forfait-complet.component';
-import { EtoilesComponent } from './etoiles/etoiles.component';
 import { GestionForfaitComponent } from './gestion-forfait/gestion-forfait.component';
 import { RechercheComponent } from './recherche/recherche.component';
 
@@ -58,6 +57,8 @@ import { GraphiquesPieComponent } from './graphiques-pie/graphiques-pie.componen
 import { GraphiquesBarComponent } from './graphiques-bar/graphiques-bar.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CaracteristiquesComponent } from './caracteristiques/caracteristiques.component';
+import { FormulaireForfaitComponent } from './formulaire-forfait/formulaire-forfait.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -66,13 +67,12 @@ import { CaracteristiquesComponent } from './caracteristiques/caracteristiques.c
     AppComponent,
     MiniForfaitComponent,
     ForfaitCompletComponent,
-    EtoilesComponent,
     GestionForfaitComponent,
     RechercheComponent,
     PrixForfaitComponent,
     AProposComponent,
-    HeaderComponent,
     DialogNewForfaitComponent,
+    HeaderComponent,
     ForfaitUrbainComponent,
     ForfaitPlageComponent,
     AdministrationComponent,
@@ -84,35 +84,37 @@ import { CaracteristiquesComponent } from './caracteristiques/caracteristiques.c
     ForfaitsVedettePipe,
     GraphiquesPieComponent,
     GraphiquesBarComponent,
-    CaracteristiquesComponent
+    CaracteristiquesComponent,
+    FormulaireForfaitComponent
   ],
-    imports: [
-        MatSliderModule,
-        HttpClientModule,
-        FlexLayoutModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatButtonModule,
-        MatInputModule,
-        MatListModule,
-        MatSidenavModule,
-        MatAutocompleteModule,
-        NgbModule,
-        ReactiveFormsModule,
-        MatCheckboxModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatMenuModule,
-        FormsModule,
-        MatTableModule,
-        MatDialogModule,
-        MatSelectModule,
-        MatPaginatorModule,
-        ChartsModule
-    ],
+  imports: [
+    MatSliderModule,
+    HttpClientModule,
+    FlexLayoutModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatListModule,
+    MatSidenavModule,
+    MatAutocompleteModule,
+    NgbModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMenuModule,
+    FormsModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatPaginatorModule,
+    ChartsModule,
+    MatTooltipModule
+  ],
   providers: [VoyagesService,
             {provide: MAT_DATE_LOCALE, useValue: 'fr-CA'},
             {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

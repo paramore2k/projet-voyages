@@ -6,7 +6,7 @@
 
       <div class="col-8 my-4" [ngClass]="{'matBorder':forfaits.forfaitEnVedette}">
 
-            <div *ngIf="forfaits.forfaitEnVedette"><span class="material-icons float-right">trending_up trending_up trending_up</span></div>
+            <div *ngIf="forfaits.forfaitEnVedette" class="text-right mt-2"><b class="trending">En vedette</b></div>
         <!-- Partie du haut -->
 
         <div fxLayout="column" fxLayoutAlign="space-around start">
@@ -22,8 +22,8 @@
           </div>
 
         <div fxLayout="row" fxLayoutAlign="space-evenly center">
-          <b>{{forfaits.dateDepart}}</b>
-            <b>{{forfaits.dateRetour}}</b>
+          <b>{{forfaits.dateDepart | date: 'yyyy-MM-dd'}}</b>
+            <b>{{forfaits.dateRetour | date: 'yyyy-MM-dd'}}</b>
           </div>
         <b>Durée: </b> {{duree(forfaits.dateDepart, forfaits.dateRetour)}} jours
 

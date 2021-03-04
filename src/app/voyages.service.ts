@@ -21,9 +21,12 @@ export class VoyagesService {
   getForfaits(): Observable<Forfaits[]> {
     return this.http.get<Forfaits[]>(this.voyagesUrl + 'da/1996400');
   }
+  getForfait(id: string): Observable<Forfaits[]> {
+    return this.http.get<Forfaits[]>(this.voyagesUrl + id);
+  }
 
   addForfaits(forfaits: Forfaits): Observable<Forfaits> {
-
+    console.log(forfaits);
     return this.http.post<Forfaits>(this.voyagesUrl, forfaits, httpOptions);
   }
   /** PUT: mise à jour du voyage */

@@ -2,6 +2,7 @@
 
         <!-- Section des cartes pour les forfaits voyage -->
           <mat-card class="my-2 cardVedette">
+            <div class="text-center trending mb-2" *ngIf="forfait.forfaitEnVedette">En vedette</div>
             <mat-card-header>
               <mat-card-title>{{forfait.destination}}</mat-card-title>
               <mat-card-subtitle>{{forfait.villeDepart}}</mat-card-subtitle>
@@ -16,7 +17,7 @@
             </mat-card-content>
 
             <mat-card-content>
-              <p>Départ: <b>{{forfait.dateDepart}}</b></p>
+              <p>Départ: <b>{{forfait.dateDepart | date: 'yyyy-MM-dd'}}</b></p>
               <p>Durée: <b>{{duree(forfait.dateDepart, forfait.dateRetour)}} Jours</b></p>
               <!-- Componsant prix-forfait pour reprendre la même structure, en remplaçant tabForfait par forfait-->
               <app-prix-forfait [rabais]="forfait.rabais" [prix]="forfait.prix"></app-prix-forfait>

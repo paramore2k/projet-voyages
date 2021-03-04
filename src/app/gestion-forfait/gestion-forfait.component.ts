@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, NgForm, Validators} from '@angular/forms';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {MatTable} from '@angular/material/table';
@@ -6,27 +6,41 @@ import {Forfaits} from '../forfaits';
 import { VoyagesService } from '../voyages.service';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogNewForfaitComponent } from '../dialog-new-forfait/dialog-new-forfait.component';
-import { tabCaracteristiques} from '../caracteristique';
+import { Caracteristique } from '../caracteristique';
 import {DateAdapter} from '@angular/material/core';
-
+import {FormulaireForfaitComponent} from '../formulaire-forfait/formulaire-forfait.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-gestion-forfait',
   templateUrl: './gestion-forfait.component.html',
   styleUrls: ['./gestion-forfait.component.css'],
 })
+
 export class GestionForfaitComponent implements OnInit {
+  caracteristiques: [
+    { nom: 'Vue sur la plage', selectionner: false },
+    { nom: 'Face à la plage', selectionner: false },
+    { nom: `À proximité de la ville`, selectionner: false },
+    { nom: 'WIFI Ultra haute-vitesse', selectionner: false },
+    { nom: 'Piscine intérieure', selectionner: false },
+    { nom: 'Ascenseur', selectionner: false },
+    { nom: 'Air climatisé', selectionner: false },
+    { nom: 'Déjeuner à la chambre', selectionner: false },
+    { nom: `Près d'un arrêt d'autobus`, selectionner: false },
+    { nom: 'Location de salles', selectionner: false },
+    { nom: 'Personnes à mobilité réduite', selectionner: false },
+    { nom: 'Salle de jeux pour enfants', selectionner: false }
+  ];
 
   @ViewChild(MatTable) table: MatTable<any>;
   /* Importation des caractéristiques */
-  @Input() tabCaracteristiques: [];
   /* Colonnes à afficher */
   columnsToDisplay = [
     'dateDepart',
     'dateRetour',
     'prix',
     'nbEtoiles',
-    'caract',
     'vedette',
     'actions'
   ];
@@ -34,7 +48,7 @@ export class GestionForfaitComponent implements OnInit {
   forfaits: Forfaits[];
   /* L'élément sélectionné */
   selectedForfait: Forfaits;
-
+  id: string;
   /* Ajout d'un forfait */
   newForfait: Forfaits;
 
@@ -51,7 +65,10 @@ export class GestionForfaitComponent implements OnInit {
   french(): void{
     this.adapter.setLocale('fr');
   }
-  constructor(config: NgbRatingConfig, private voyageService: VoyagesService, public dialog: MatDialog, private adapter: DateAdapter<any>) {
+
+  constructor(config: NgbRatingConfig, private voyageService: VoyagesService, public dialog: MatDialog, private adapter: DateAdapter<any>,
+              private route: ActivatedRoute,
+              private router: Router) {
     /* Définie la valeur maximum du nombre d'étoiles dans le formulaire */
     config.max = 5;
     config.readonly = false;
@@ -81,6 +98,7 @@ export class GestionForfaitComponent implements OnInit {
     this.getForfaits();
 
   }
+
   /* Recevoir les forfaits */
   getForfaits(): void {
     this.voyageService.getForfaits()
@@ -89,13 +107,25 @@ export class GestionForfaitComponent implements OnInit {
 
   /* Section ngForm pour l'édition d'un formulaire */
 
-  onEdit(forfaitFormEdition: NgForm): void {
-    if (forfaitFormEdition.valid) {
-      this.voyageService.updateForfaits(this.selectedForfait)
-        .subscribe(() => this.selectedForfait = null);
+  /* Édition des forfaits */
+  onEdit(forfaitFormAjout: NgForm): void{
+    if (this.caracteristiques){
+      this.newForfait.hotel.caracteristiques = [];
+      this.getCaracteristiques();
     }
+    this.voyageService.updateForfaits(this.newForfait)
+      .subscribe(() => {
+        this.newForfait = null;
+        this.router.navigate(['/gestion']);
+      });
   }
-
+  getCaracteristiques(): void{
+    this.caracteristiques.map(valeur => {
+      if (valeur.selectionner) {
+        this.newForfait.hotel.caracteristiques.push(valeur.nom);
+      }
+    });
+  }
 
   onSelect(forfaits: Forfaits): void {
     this.selectedForfait = forfaits;

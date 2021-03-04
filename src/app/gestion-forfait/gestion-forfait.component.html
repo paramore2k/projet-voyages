@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12 m-auto text-right">
-      <button matSuffix type="submit" class="btn btn-primary" (click)="openDialogNewForfait()">Ajouter un forfait</button>
+      <a routerLink="nouveau-forfait"><button matSuffix type="submit" class="btn btn-primary">Ajouter un forfait</button></a>
       <hr>
     </div>
   </div>
@@ -45,8 +45,8 @@
           <!-- Section nombre d'étoiles -->
 
           <ng-container matColumnDef="nbEtoiles">
-            <th mat-header-cell class="text-center" *matHeaderCellDef>Nombre d'étoiles</th>
-            <td mat-cell *matCellDef="let forfait">{{forfait.hotel.nombreEtoiles}}</td>
+            <th mat-header-cell *matHeaderCellDef class="text-center">Nombre d'étoiles</th>
+            <td mat-cell *matCellDef="let forfait" class="text-center">{{forfait.hotel.nombreEtoiles}}</td>
           </ng-container>
 
           <!-- Section nombre de chambre -->
@@ -56,27 +56,19 @@
             <td mat-cell *matCellDef="let forfait">{{forfait.hotel.nombreChambres }}</td>
           </ng-container>
 
-          <!-- Section Caractéristiques -->
-
-          <ng-container matColumnDef="caract">
-            <th mat-header-cell class="text-center" *matHeaderCellDef>Caractéristiques</th>
-            <td mat-cell *matCellDef="let forfait">{{forfait.hotel.caracteristiques}}</td>
-          </ng-container>
-
           <!-- Section date départ -->
 
           <ng-container matColumnDef="dateDepart">
             <th mat-header-cell *matHeaderCellDef>Date départ</th>
-            <td mat-cell *matCellDef="let forfait">{{forfait.dateDepart}}</td>
+            <td mat-cell *matCellDef="let forfait">{{forfait.dateDepart | date: 'yyyy-MM-dd'}}</td>
           </ng-container>
 
           <!-- Section Date retour -->
 
           <ng-container matColumnDef="dateRetour">
             <th mat-header-cell *matHeaderCellDef>Date retour</th>
-            <td mat-cell *matCellDef="let forfait">{{forfait.dateRetour}}</td>
+            <td mat-cell *matCellDef="let forfait">{{forfait.dateRetour | date: 'yyyy-MM-dd'}}</td>
           </ng-container>
-
 
 
           <!-- Section rabais -->
@@ -97,14 +89,19 @@
           <!-- Section actions -->
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef class="pl-4">Actions</th>
-            <td mat-cell *matCellDef="let forfaits" class="boutonsAction">
+            <td mat-cell *matCellDef="let forfait" class="boutonsAction">
 
-              <form (ngSubmit)="openDialogEditionForfait(forfaits)">
-                <button mat-button><i class="material-icons">edit</i></button>
+              <form (ngSubmit)="onEdit(forfait)">
+                <!-- On inclus le type button pour éviter la soumission du formulaire sur le click -->
+                <button mat-button type="button"
+                        matTooltip="Modifier le forfait"
+                        [routerLink]="['modifForfait/',forfait._id]"
+                      >
+                  <i class="material-icons">edit</i></button>
               </form>
 
 
-              <form (ngSubmit)="onDelete(forfaits)">
+              <form (ngSubmit)="onDelete(forfait)">
                 <button mat-button ><i class="material-icons">delete</i></button>
               </form>
             </td>
