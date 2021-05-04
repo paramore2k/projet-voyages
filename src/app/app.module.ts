@@ -59,6 +59,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { CaracteristiquesComponent } from './caracteristiques/caracteristiques.component';
 import { FormulaireForfaitComponent } from './formulaire-forfait/formulaire-forfait.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { DialogueConfirmSuppComponent } from './dialogue-confirm-supp/dialogue-confirm-supp.component';
 
 
 
@@ -85,7 +86,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     GraphiquesPieComponent,
     GraphiquesBarComponent,
     CaracteristiquesComponent,
-    FormulaireForfaitComponent
+    FormulaireForfaitComponent,
+    DialogueConfirmSuppComponent
   ],
   imports: [
     MatSliderModule,

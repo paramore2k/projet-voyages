@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, NgForm, Validators} from '@angular/forms';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {MatTable} from '@angular/material/table';
@@ -6,10 +6,9 @@ import {Forfaits} from '../forfaits';
 import { VoyagesService } from '../voyages.service';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogNewForfaitComponent } from '../dialog-new-forfait/dialog-new-forfait.component';
-import { Caracteristique } from '../caracteristique';
 import {DateAdapter} from '@angular/material/core';
-import {FormulaireForfaitComponent} from '../formulaire-forfait/formulaire-forfait.component';
 import {ActivatedRoute, Router} from '@angular/router';
+import {DialogueConfirmSuppComponent} from '../dialogue-confirm-supp/dialogue-confirm-supp.component';
 
 @Component({
   selector: 'app-gestion-forfait',
@@ -62,10 +61,6 @@ export class GestionForfaitComponent implements OnInit {
       this.ctrl.disable();
     }
   }
-  french(): void{
-    this.adapter.setLocale('fr');
-  }
-
   constructor(config: NgbRatingConfig, private voyageService: VoyagesService, public dialog: MatDialog, private adapter: DateAdapter<any>,
               private route: ActivatedRoute,
               private router: Router) {
@@ -133,13 +128,13 @@ export class GestionForfaitComponent implements OnInit {
 
   /* Dialogue d'ouverture pour l'édition des forfaits */
 
-  openDialogEditionForfait(forfait: Forfaits): void {
+/*  openDialogEditionForfait(forfait: Forfaits): void {
     this.selectedForfait = forfait;
-    const dialogRef = this.dialog.open(DialogNewForfaitComponent, {
+    const dialogRef = this.dialog.open(DialogueConfirmSuppComponent, {
       width: '60%',
       minHeight: '70vh',
       autoFocus: false,
-      data: this.selectedForfait
+      data: { forfait }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -148,48 +143,29 @@ export class GestionForfaitComponent implements OnInit {
           .subscribe(() => this.selectedForfait = null);
       }
     });
-  }
+  }*/
 
 
     /* Suppression d'un forfait */
     onDelete(forfaits: Forfaits): void {
     this.voyageService.deleteForfaits(forfaits._id)
-      .subscribe((result) => this.forfaits = this.forfaits.filter(f => f !== forfaits));
-  }
+      .subscribe(result => {
+        this.forfaits = this.forfaits.filter(f => f !== forfaits);
+      });
+}
+
   /* Ouverture du dialogue pour l'ajout d'un nouveau forfait */
-  openDialogNewForfait(): void {
-    const dialogRef = this.dialog.open(DialogNewForfaitComponent, {
+  openDialog(forfaits: Forfaits): void {
+    const dialogRef = this.dialog.open(DialogueConfirmSuppComponent, {
       /* Largeur de la fenêtre de dialogue */
-      width: '800px',
+      width: '600px',
       autoFocus: false,
       maxHeight: '70vh',
-      data: this.newForfait
+      data: { forfait: forfaits}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        this.newForfait = result;
-        console.log(this.newForfait);
-        this.voyageService.addForfaits(this.newForfait)
-          .subscribe(forfait  => {
-            this.forfaits.push(forfait);
-            this.newForfait._id = null;
-            this.newForfait.da = '1996400';
-            this.newForfait.hotel = {
-              nom: '',
-              caracteristiques: [],
-              nombreChambres: null,
-              nombreEtoiles: null,
-              coordonnees: ''
-            };
-            this.newForfait.dateRetour = '';
-            this.newForfait.dateDepart = '';
-            this.newForfait.rabais = null;
-            this.newForfait.destination = '';
-            this.newForfait.villeDepart = '';
-            this.newForfait.prix = null;
-            this.table.renderRows();
-          });
+      if (result !== 'close') {
+        this.onDelete(result);
       }
     });
   }

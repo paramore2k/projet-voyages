@@ -1,0 +1,9 @@
+<app-mini-forfait [forfait]="data.forfait" style='display: flex; justify-content: center; align-content: center;'></app-mini-forfait>
+
+<div style='display: flex; justify-content: center; align-content: center;'>
+  <h5>Voulez-vous vraiment supprimer le forfait ?</h5>
+</div>
+<div style='display: flex; justify-content: space-evenly; align-content: center;'>
+  <button mat-stroked-button color="warn" (click)="annuleSupp()">Non</button>
+    <button mat-stroked-button color="warn" (click)="suppForfait(data.forfait)">Oui</button>
+</div>
